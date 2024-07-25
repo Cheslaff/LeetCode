@@ -1,27 +1,28 @@
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        result = []
+        # to use 2sum technique of 2 pointers we need to sort array
         nums.sort()
+        result = []
 
-        for i, a in enumerate(nums):
-            if i > 0 and a == nums[i - 1]:
+        for cur in range(len(nums)):
+            # to avoid duplicates
+            if cur > 0 and nums[cur] == nums[cur - 1]:
                 continue
 
-            l = i + 1
+            target = -nums[cur]
+            l = cur + 1
             r = len(nums) - 1
-
+            
             while l < r:
-                three_sum = a + nums[l] + nums[r]
+                twosum = nums[l] + nums[r]
 
-                if three_sum > 0:
+                if twosum > target:
                     r -= 1
-                elif three_sum < 0:
+                elif twosum < target:
                     l += 1
                 else:
-                    result.append([a, nums[l], nums[r]])
+                    result.append([nums[l], nums[r], nums[cur]])
                     l += 1
-
-                    while nums[l] == nums[l - 1] and l < r:
+                    while l < r and nums[l - 1] == nums[l]:
                         l += 1
         return result
-                    
