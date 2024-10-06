@@ -1,28 +1,23 @@
 class Solution:
 
     def encode(self, strs: List[str]) -> str:
-        output = ""
-
-        for word in strs:
-            output += str(len(word)) + "|" + word
-        return output
+        str_ = ""
+        for s in strs:
+            str_ += f"{len(s)}/" + s
+        return str_
 
     def decode(self, s: str) -> List[str]:
-        output = []
-
-        i = 0
-
-        while i < len(s):
-            j = i
-            while s[j] != "|":
-                j += 1
+        res = []
+        l = 0
+        r = l
+        while l < len(s):
+            while s[r] != "/":
+                r += 1
+            length = int(s[l:r])
+            l = r + 1
+            r = l + length
+            res.append(s[l:r])
+            l = r
+        return res
             
-            length = int(s[i:j])
-            i = j + 1
-            j = i + length
-
-            output.append(s[i:j])
-
-            i = j
-        
-        return output
+# Revisited this problem!
