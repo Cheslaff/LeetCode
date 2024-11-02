@@ -28,3 +28,15 @@ class Solution:
             head.next.next = head
             head.next = None
         return new_head
+
+# Another recursive solution (I think better)
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        def reverse_l(cur, prev):
+            if not cur:
+                return prev
+            next = cur.next
+            cur.next = prev
+            prev = cur
+            return reverse_l(next, prev)
+        return reverse_l(head, None)
